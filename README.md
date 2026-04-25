@@ -14,14 +14,13 @@
 **Team**: ZaneLijieTitanic (`znding04` + `ljding94`).
 
 ## LB Tracker
-| Date | Model/Feat | CV Acc | Public LB | Top % | Commit |
-|------|------------|--------|-----------|-------|--------|
-| 2026-04-25 | XGBoost Baseline (median fill, label encode) | 0.802 ± 0.008 | 0.799 | 15% | [spaceship_baseline.ipynb](spaceship_baseline.ipynb) |
+| Date | Model/Feat | CV Acc | Public LB | Top % | Notes |
+|------|------------|--------|-----------|-------|-------|
+| 2026-04-25 | XGBoost Baseline (median fill, label encode) | 0.802 ± 0.008 | 0.799 | 15% | Run interactively in Jupyter kernel (file not saved) |
 | 2026-04-25 | LGB+XGB Ensemble (30 feat: cabin/group/spend/log/ratio) | 0.807 ± 0.007 | 0.796 | ~20% | [build_model.py](build_model.py) |
 
 ## Files
 - `train.csv`, `test.csv`, `sample_submission.csv`
-- `spaceship_baseline.ipynb`: XGBoost baseline notebook (10 features, CV 0.802, LB 0.799)
 - `build_model.py`: LGB+XGB ensemble model (30 features, CV 0.807, LB 0.796)
 - `submission.csv`: LB 0.796 sub (latest)
 
