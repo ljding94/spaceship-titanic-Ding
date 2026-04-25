@@ -17,6 +17,7 @@
 | Date | Model/Feat | CV Acc | Public LB | Top % | Commit |
 |------|------------|--------|-----------|-------|--------|
 | 2026-04-25 | XGBoost Baseline (median fill, label encode) | 0.802 ± 0.008 | 0.799 | 15% | [baseline](spaceship_baseline.ipynb) |
+| 2026-04-25 | LGB+XGB Ensemble (30 feat: cabin/group/spend/log/ratio) | 0.807 ± 0.007 | 0.796 | ~20% | [build_model.py](build_model.py) |
 
 ## Files
 - `train.csv`, `test.csv`, `sample_submission.csv`
