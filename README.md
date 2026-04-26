@@ -20,8 +20,9 @@
 | 2026-04-25 | LGB+XGB Ensemble (30 feat: cabin/group/spend/log/ratio) | 0.807 ± 0.007 | 0.796 | ~20% | [build_model.py](build_model.py) |
 | 2026-04-26 | Minimal-feat LGB+XGB multi-seed ensemble (15 feat) | 0.804 | TBD | TBD | [minimal_ensemble.py](minimal_ensemble.py) |
 | 2026-04-26 | MLP Neural Net (15 feat) | 0.792 | - | - | [mlp_xgb_experiment.py](mlp_xgb_experiment.py) |
-| 2026-04-26 | Stacking (LGB+XGB+CatBoost→LR) + smart imputation (21 feat) | 0.813 | TBD | TBD | [stacking_model.py](stacking_model.py) |
-| 2026-04-26 | Optuna LGB tuned (80 trials, baseline feat) | 0.818 | TBD | TBD | [optuna_tuning.py](optuna_tuning.py) |
+| 2026-04-26 | Stacking (LGB+XGB+CatBoost→LR) + smart imputation (21 feat) | 0.813 | **0.808** | ~8% | [stacking_model.py](stacking_model.py) |
+| 2026-04-26 | CatBoost native categoricals (21 feat) | TBD | **0.807** | ~9% | [catboost_model.py](catboost_model.py) |
+| 2026-04-26 | Optuna LGB tuned (80 trials, baseline feat) | 0.818 | 0.801 | ~16% | [optuna_tuning.py](optuna_tuning.py) |
 | 2026-04-26 | Optuna XGB tuned (80 trials, baseline feat) | 0.817 | TBD | TBD | [optuna_tuning.py](optuna_tuning.py) |
 
 ## Files
