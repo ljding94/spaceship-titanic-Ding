@@ -49,16 +49,19 @@ def main():
 Current best: LB 0.799 (baseline_xgb.py) — simple XGBoost with basic features.
 The ensemble (build_model.py) got CV 0.807 but LB 0.796 — overfitting.
 
-Try this approach:
-1. CatBoost with native categorical handling (no encoding needed)
-2. Use only the baseline features (keep it simple to avoid overfitting)
-3. 5-fold cross-validation
-4. If LB > 0.799: save submission.csv, git add/commit/push, update README.md
+**CRITICAL: You must complete ALL steps below — do not stop at writing the script.**
+
+1. Write/improve the model script (CatBoost or your chosen approach)
+2. RUN the script: `.venv/bin/python your_script.py`
+3. Verify it produced a submission_*.csv file with realistic True/False distribution
+4. Submit to Kaggle: `export PATH="$HOME/Library/Python/3.12/bin:$PATH" && kaggle competitions submit spaceship-titanic -f submission_YOURNAME.csv -m "description"`
+5. Check the public LB score returned by Kaggle
+6. IF score improved: git add/commit/push AND update README.md LB Tracker table with the new score
+7. Report all results (CV, LB score, what was submitted)
 
 Python: ~/Work/ljding94-spaceship-titanic-Ding/.venv/bin/python
 Data: train.csv (8693 rows), test.csv (4277 rows)
-
-IMPORTANT: Only push if LB score actually improved."""
+Kaggle auth: token at ~/.kaggle/kaggle.json (401 = expired — warn if so)"""
     success1 = run_claude_round(1, round1_task)
 
     # Round 2: Try simpler regularization approach
@@ -72,10 +75,17 @@ Try a DIFFERENT approach this round:
 3. Or try a simple Neural Network (MLP) with sklearn MLPClassifier
 4. 5-fold CV, compare carefully
 
-If improved (LB > 0.799): save submission.csv, git add/commit/push, update README.
-If not improved: try a different approach, still commit the code for reference.
+**CRITICAL: Complete ALL steps — do not stop at writing the script.**
+1. Write/improve the model script
+2. RUN the script: `.venv/bin/python your_script.py`
+3. Verify submission file with realistic True/False counts
+4. Submit: `export PATH="$HOME/Library/Python/3.12/bin:$PATH" && kaggle competitions submit spaceship-titanic -f submission_NAME.csv -m "description"`
+5. Check LB score returned
+6. IF improved: git add/commit/push AND update README.md LB Tracker
+7. Report all results
 
-Python: ~/Work/ljding94-spaceship-titanic-Ding/.venv/bin/python"""
+Python: ~/Work/ljding94-spaceship-titanic-Ding/.venv/bin/python
+Kaggle auth: ~/.kaggle/kaggle.json (401 = expired — warn if so)"""
     success2 = run_claude_round(2, round2_task)
 
     # Round 3: Try Optuna hyperparameter tuning
@@ -86,10 +96,17 @@ Try Optuna hyperparameter tuning for XGBoost or LightGBM:
 2. 5-fold CV as objective
 3. Use the baseline feature set (don't over-engineer)
 
-If best trial CV > 0.805: generate submission and push.
-Even if not better: commit the Optuna study results for future reference.
+**CRITICAL: Complete ALL steps — do not stop at writing the script.**
+1. Write the Optuna tuning script
+2. RUN it: `.venv/bin/python your_script.py`
+3. Verify submission_*.csv with realistic True/False counts
+4. Submit: `export PATH="$HOME/Library/Python/3.12/bin:$PATH" && kaggle competitions submit spaceship-titanic -f submission_NAME.csv -m "description"`
+5. Check LB score returned
+6. IF improved: git add/commit/push AND update README.md LB Tracker
+7. Report all results (CV, LB, what was submitted)
 
-Python: ~/Work/ljding94-spaceship-titanic-Ding/.venv/bin/python"""
+Python: ~/Work/ljding94-spaceship-titanic-Ding/.venv/bin/python
+Kaggle auth: ~/.kaggle/kaggle.json (401 = expired — warn if so)"""
     run_claude_round(3, round3_task)
 
     print("\n" + "=" * 50)
