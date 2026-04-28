@@ -14,13 +14,23 @@ PYTHON = os.path.join(REPO, '.venv', 'bin', 'python')
 BEST_LB = 0.799
 ROUNDS = 3  # number of Claude invocations per night
 
-# CRITICAL: Set KAGGLE_API_TOKEN from kaggle.json so the SDK can auth
+# CRITICAL: Set KAGGLE_API_TOKEN from kaggle.json OR ~/.zshrc so the SDK can auth
 # (the env var must be set to the actual token, not empty)
 _KAGGLE_JSON = os.path.expanduser('~/.kaggle/kaggle.json')
 if os.path.exists(_KAGGLE_JSON):
     with open(_KAGGLE_JSON) as _f:
         _creds = json.load(_f)
     os.environ['KAGGLE_API_TOKEN'] = _creds.get('key', '')
+else:
+    # Fallback: parse KAGGLE_API_TOKEN from ~/.zshrc
+    _ZSHRC = os.path.expanduser('~/.zshrc')
+    if os.path.exists(_ZSHRC):
+        with open(_ZSHRC) as _f:
+            for line in _f:
+                if line.strip().startswith('export KAGGLE_API_TOKEN='):
+                    _token = line.strip().split('=', 1)[1].strip().strip('"').strip("'")
+                    os.environ['KAGGLE_API_TOKEN'] = _token
+                    break
 
 
 def run_claude_round(round_num, task):
