@@ -24,7 +24,8 @@
 | 2026-04-26 | CatBoost native categoricals (21 feat) | 0.813 | **0.807** | ~9% | [catboost_model.py](catboost_model.py) |
 | 2026-04-26 | Optuna LGB tuned (80 trials, baseline feat) | 0.818 | **0.808** | ~8% | [optuna_tuning.py](optuna_tuning.py) |
 | 2026-04-26 | Optuna XGB tuned (80 trials, baseline feat) | 0.817 | TBD | TBD | [optuna_tuning.py](optuna_tuning.py) |
-| **2026-04-27** | **Optuna LGB + Stacking (best LB)** | **0.818** | **0.808** | **~8%** | **New best!** |
+| 2026-04-27 | Optuna LGB + Stacking | 0.818 | 0.808 | ~8% | [optuna_tuning.py](optuna_tuning.py) |
+| **2026-04-29** | **Pseudo-label Stacking (R1+R2 blend, 5-seed)** | **0.814** | **0.809** | **~7%** | **[pseudo_label_stack.py](pseudo_label_stack.py) — New best!** |
 
 ## Files
 - `train.csv`, `test.csv`, `sample_submission.csv`
@@ -34,7 +35,9 @@
 - `mlp_xgb_experiment.py`: MLP + regularized XGB experiment
 - `stacking_model.py`: Stacking ensemble with smart domain-aware imputation (CV 0.813)
 - `optuna_tuning.py`: Optuna hyperparameter tuning for LGB+XGB (LGB CV 0.818, XGB CV 0.817)
-- `submission.csv`: Latest submission (stacking ensemble)
+- `pseudo_label_stack.py`: Pseudo-label stacking with R1+R2 blend (CV 0.814, LB 0.809)
+- `refined_stacking.py`: Refined stacking v3 with HGB (CV 0.815, LB 0.807)
+- `submission.csv`: Latest submission (pseudo-label stacking)
 
 ## Workflow
 1. `git clone https://github.com/ljding94/spaceship-titanic-Ding.git`
