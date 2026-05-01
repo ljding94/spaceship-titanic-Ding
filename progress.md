@@ -1,7 +1,7 @@
 # Spaceship Titanic — Project Progress
 
 ## Last Updated
-2026-04-30 (02:18 AM)
+2026-05-01 (02:27 AM)
 
 ## Competition
 - Kaggle: Spaceship Titanic (Getting Started)
@@ -18,15 +18,15 @@
 ### 📊 LB Scores
 | Model | CV | LB |
 |-------|----|-----|
-| **auto-round 20260430 (feature selection v2)** | TBD | **0.80944** 🆕 |
-| auto-round 20260429 (pseudo-label stacking) | 0.8135 | 0.80897 |
-| Stacking (LGB+XGB+CatBoost→LR) | 0.813 | 0.80780 |
-| CatBoost | 0.813 | 0.80710 |
-| Optuna LGB (80 trials) | 0.818 | 0.80056 |
+| **auto-round 20260501 (NativeCat v4)** | 0.816 | **0.810** 🆕 |
+| auto-round 20260430 (feature selection v2) | 0.814 | 0.809 |
+| auto-round 20260429 (pseudo-label stacking) | 0.814 | 0.809 |
+| Stacking (LGB+XGB+CatBoost→LR) | 0.813 | 0.808 |
+| CatBoost | 0.813 | 0.807 |
+| Optuna LGB (80 trials) | 0.818 | 0.801 |
 | Baseline XGB | 0.802 | 0.799 |
-| auto-round 20260428 | TBD | 0.80687 |
 
-- Best LB: 0.80944 (~top 4-5%)
+- Best LB: 0.810 (~top 3-4%)
 - Target: 0.82 LB (top 10%)
 
 ### 🚧 In Progress
@@ -35,27 +35,39 @@
 - NOTE: cron needs KAGGLE_API_TOKEN env var — read from ~/.zshrc via `source ~/.zshrc` or set explicitly
 
 ### ⏳ Pending
-- ~~Submit Optuna XGB (CV 0.817)~~ → LB confirmed 0.80056
-- Reach 0.82 LB (top 5%)
+- Reach 0.82 LB (top 10%)
+- Fix shell escaping bug in auto_improve.py round 3 (the `don't` in task string causes syntax error)
 - Simplify features if overfitting persists
 
 ## Project Notes
 - Data: 8,693 train rows, 4,277 test rows
-- Best approach so far: stacking ensemble with pseudo-labeling
-- Auth fix: set KAGGLE_API_TOKEN explicitly (empty env var overrides kaggle.json)
-- Working kaggle CLI: ~/.local/pipx/venvs/kaggle/bin/kaggle (2.1.0)
+- Best approach so far: CatBoost with native categorical handling + weighted blend (75% CatBoost)
+- Key insight: CatBoost native ordered target encoding beats label encoding
+- More features = overfitting (smart blend v5 with 40 feat scored worse)
+- Threshold 0.5 generalizes better than tuned thresholds
+- We're near a plateau — 0.810 barrier is hard to break
 
 ## Round Log
-- **2026-04-30**: Claude Code feature selection + regularization attempt. Feature selection v2 with 24 features + stronger regularization + threshold tuning (0.54). LB = **0.80944** — **NEW BEST** (+0.00047). Created feature_selection_v2.py and interaction_features_v2.py.
-- **2026-04-29**: auto_improve.py ran pseudo-label stacking (R1+R2 blend, 5-seed LGB+XGB+CatBoost). LB = 0.80897 — **previous best**. Used pseudo-labeling with refined stacking v3. CV=0.8135.
+- **2026-05-01**: auto_improve.py ran 3 rounds:
+  - **Round 1**: NativeCat v4 (CatBoost native cats + weighted blend 75% CatBoost + pseudo-label + 5 seeds). LB = **0.80991** — NEW BEST! Committed.
+  - **Round 2**: Tried heavy reg XGB, smart blend v5 (40 feat), rank blend v6. Best was rank v6 CatBoost 75% → LB 0.80967 (didn't beat round 1). No commit.
+  - **Round 3**: FAILED — shell escaping bug in auto_improve.py (the `don't` in the task string caused a syntax error). Needs fix.
+- **2026-04-30**: Claude Code feature selection + regularization attempt. Feature selection v2 with 24 features + stronger regularization + threshold tuning (0.54). LB = **0.80944** — previous best. Created feature_selection_v2.py and interaction_features_v2.py.
+- **2026-04-29**: auto_improve.py ran pseudo-label stacking (R1+R2 blend, 5-seed LGB+XGB+CatBoost). LB = 0.80897.
 - **2026-04-28**: auto-round baseline. LB = 0.80687.
 - **2026-04-27**: Stacking ensemble (LGB+XGB+CatBoost→LR) with CV 0.813. LB = 0.80780.
 
 ## Key Files
-- auto_improve.py     → nightly auto-train+submit pipeline
+- auto_improve.py     → nightly auto-train+submit pipeline (3 rounds/night)
+- native_cat_blend.py → current best: CatBoost native cats + weighted blend (LB 0.810)
 - build_model.py      → LGB+XGB ensemble
-- stacking_model.py  → stacking ensemble (previous best LB)
+- stacking_model.py  → stacking ensemble
 - catboost_model.py   → CatBoost variant
 - optuna_tuning.py   → hyperparameter search
-- feature_selection_v2.py → feature selection + regularization (new best LB)
-- interaction_features_v2.py → interaction features attempt
+- feature_selection_v2.py → feature selection + regularization
+- heavy_reg_xgb.py    → heavy regularization XGB (didn't help)
+- rank_blend_v6.py    → rank-based blending attempt (LB 0.80967)
+- smart_blend_v5.py   → smart blend with 40 features (overfit, LB 0.806)
+
+## Known Bugs
+- auto_improve.py round 3 task string has shell escaping issue with `don't` → fix needed
