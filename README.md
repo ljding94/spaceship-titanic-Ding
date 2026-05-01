@@ -25,7 +25,9 @@
 | 2026-04-26 | Optuna LGB tuned (80 trials, baseline feat) | 0.818 | **0.808** | ~8% | [optuna_tuning.py](optuna_tuning.py) |
 | 2026-04-26 | Optuna XGB tuned (80 trials, baseline feat) | 0.817 | TBD | TBD | [optuna_tuning.py](optuna_tuning.py) |
 | 2026-04-27 | Optuna LGB + Stacking | 0.818 | 0.808 | ~8% | [optuna_tuning.py](optuna_tuning.py) |
-| **2026-04-29** | **Pseudo-label Stacking (R1+R2 blend, 5-seed)** | **0.814** | **0.809** | **~7%** | **[pseudo_label_stack.py](pseudo_label_stack.py) — New best!** |
+| 2026-04-29 | Pseudo-label Stacking (R1+R2 blend, 5-seed) | 0.814 | 0.809 | ~7% | [pseudo_label_stack.py](pseudo_label_stack.py) |
+| 2026-04-30 | Feature Selection v2 + interact (24 feat) | 0.814 | 0.809 | ~7% | [feature_selection_v2.py](feature_selection_v2.py) |
+| **2026-05-01** | **NativeCat v4: CatBoost native cats + weighted blend (75% CatBoost), pseudo-label, 5 seeds** | **0.816** | **0.810** | **~6%** | **[native_cat_blend.py](native_cat_blend.py) — New best!** |
 
 ## Files
 - `train.csv`, `test.csv`, `sample_submission.csv`
@@ -37,7 +39,9 @@
 - `optuna_tuning.py`: Optuna hyperparameter tuning for LGB+XGB (LGB CV 0.818, XGB CV 0.817)
 - `pseudo_label_stack.py`: Pseudo-label stacking with R1+R2 blend (CV 0.814, LB 0.809)
 - `refined_stacking.py`: Refined stacking v3 with HGB (CV 0.815, LB 0.807)
-- `submission.csv`: Latest submission (pseudo-label stacking)
+- `feature_selection_v2.py`: Feature selection v2 with interaction features (CV 0.814, LB 0.809)
+- `native_cat_blend.py`: CatBoost native categoricals + weighted blend (CV 0.816, LB 0.810)
+- `submission.csv`: Latest submission (native CatBoost blend)
 
 ## Workflow
 1. `git clone https://github.com/ljding94/spaceship-titanic-Ding.git`
