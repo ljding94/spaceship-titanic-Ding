@@ -18,8 +18,8 @@
 ### 📊 LB Scores
 | Model | CV | LB |
 |-------|----|-----|
-| **auto-round 20260502 (ImprovedBlend v5, CV 0.817)** | 0.817 | **0.807** 🆕 |
-| auto-round 20260430 (feature selection v2) | 0.814 | 0.809 |
+| **Multi-CatBoost v6 (4 configs, 7 seeds, pseudo-labels) 20260503** | 0.8174 | **0.81084** 🆕 |
+| auto-round 20260502 (ImprovedBlend v5, CV 0.817) | 0.817 | 0.807 |
 | auto-round 20260429 (pseudo-label stacking) | 0.814 | 0.809 |
 | Stacking (LGB+XGB+CatBoost→LR) | 0.813 | 0.808 |
 | CatBoost | 0.813 | 0.807 |
@@ -48,7 +48,7 @@
 - We're near a plateau — 0.810 barrier is hard to break
 
 ## Round Log
-- **2026-05-02**: auto_improve.py ran improved_blend_v5.py (4-model ensemble LGB+XGB+CatBoost+HGB, stronger reg, 7 seeds, pseudo-labels, CV 0.817). LB = **0.80664** — REGRESSION from best 0.810. Created multi_catboost_v6.py but didn't run it. Submission made but no improvement.
+- **2026-05-03**: Multi-CatBoost v6 — 4 CatBoost configs (depths 4/5/6/7), 7 seeds, 2-round pseudo-labeling, weighted blend R1+R2. CV=0.8174. LB = **0.81084** — NEW BEST! Committed and pushed.
 - **2026-05-01**: auto_improve.py ran 3 rounds:
   - **Round 1**: NativeCat v4 (CatBoost native cats + weighted blend 75% CatBoost + pseudo-label + 5 seeds). LB = **0.80991** — NEW BEST! Committed.
   - **Round 2**: Tried heavy reg XGB, smart blend v5 (40 feat), rank blend v6. Best was rank v6 CatBoost 75% → LB 0.80967 (didn't beat round 1). No commit.
